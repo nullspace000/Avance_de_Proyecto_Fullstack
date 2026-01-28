@@ -2,8 +2,7 @@
 
 Arwen, Diego y Emiliano
 
-***Concepto
+### Concepto
 
 Applicación para gestionar medios de entretenimiento. Servirá para llevar un registro de las películas, series, libros y juegos que hemos disfrutado.
-
 
