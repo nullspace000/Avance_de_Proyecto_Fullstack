@@ -1,9 +1,28 @@
-@import "tailwindcss";
-
-:root {
-  --mi-todo-pendejo: #5555FF;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", sans-serif;
 }
 
-html {
-  background-color: var(--mi-todo-pendejo);
+body {
+  background: linear-gradient(135deg, #1e1e2f, #2a2a40);
+  color: white;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
 }
