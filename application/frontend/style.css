@@ -2,7 +2,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
+    font-family: system-ui, sans-serif;
+
+    /*CONSTANTES*/
+
 }
 /* TODO LO DE LAS VENTANAS*/
 .view { display: none; }
@@ -20,62 +23,53 @@
 }
 
 /* RESET */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
 
 body {
     font-family: system-ui, sans-serif;
     background-color: #ecebe6;
     color: #2e2e2e;
-    padding: 20px;
+    padding: 1.2em;
 }
 
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-direction: row;
     background-color: #ffffff;
-    padding: 16px 24px;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border: none;
+    border-radius: 30px;
+    padding: 1em 4em;
 }
 
 .navbar h1 {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
 }
 
 .navbar ul {
     display: flex;
-    gap: 12px;
     list-style: none;
+    gap: 9em;
 }
 
 .nav-button {
-    padding: 6px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    font-size: 1.1em;
+    width: 6em;
+    padding: 0.3em 1em;
     border-radius: 12px;
-    border: 1px solid #d4d1c8;
-    background-color: #f7f6f2;
-    color: #2e2e2e;
     cursor: pointer;
-}
-
-.nav-button:hover {
-    background-color: #e3e1da;
 }
 
 .profile {
-    margin-left: 12px;
-    width: 44px;
-    height: 44px;
+    color: black;
+    height: 5em;
+    width: 5em;
     border-radius: 50%;
     border: none;
-    background-color: #2f4858;
-    color: #ffffff;
-    font-weight: 600;
-    cursor: pointer;
 }
 
 .view {
