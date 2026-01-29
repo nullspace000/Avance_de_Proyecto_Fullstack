@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+:root {
+  --mi-todo-pendejo: #5555FF;
+}
+
+html {
+  background-color: var(--mi-todo-pendejo);
+}
