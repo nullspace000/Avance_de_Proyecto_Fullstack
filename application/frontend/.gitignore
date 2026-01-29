@@ -22,3 +22,16 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Archivos generados por Vite
+.vite/
+vite.config.ts.timestamp-*
+
+# Testing
+coverage/
+
+# Caché
+.cache/
+
+# TypeScript
+*.tsbuildinfo
