@@ -3,32 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Medios</title>
+    <title>Gestor de Medios</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav>
-        Gestor de Medios
-        <button>Películas</button>
-        <button>Series</button>
-        <button>Juegos</button>
-    </nav>
-    <table>
-        <tr>
-            <td id="left-side">
-                Películas por ver <br>
-                <button>Agregar película</button>
+    <header>
+        <nav class="navbar">
+            <h1>Gestor de Medios</h1>
+            <div>
                 <ul>
-                    <li>Los Increibles</li>
+                    <li><button class="nav-button" id="movies">Pelculas</button></li>
+                    <li><button class="nav-button" id="series">Series</button></li>
+                    <li><button class="nav-button" id="games">Juegos</button></li>
                 </ul>
-            </td>
+                <button class="profile" id="profile">Perfil</button>
+            </div>
+        </nav>
+    </header>
 
-            <td id="right-side">
-                Películas vistas
-            </td>
-        </tr>
-    </table>
+    <main>
+        <section class="container">
 
-    <script src="script.js"></script>
+            <section class="section" id="seen">
+                <h1>Peliculas Vistas</h1>
+                <button class="add-movie">Agregar pelicula</button>
+
+                <div class="movie-container">
+                    <h1>Me encanto</h1>
+                    <table class="movie-table" id="loved-it">
+
+                    </table>
+                </div>
+
+                <div class="movie-container">
+                    <h1>Me encanto</h1>
+                    <table class="movie-table" id="like-it">
+
+                    </table>
+                </div>
+
+                <div class="movie-container">
+                    <h1>Me encanto</h1>
+                    <table class="movie-table" id="dislike-it">
+
+                    </table>
+                </div>
+
+
+
+            </section>
+
+            <section class="section" id="por-ver">
+                <h1>Peliculas Por Ver</h1>
+                <button class="add-movie">Agregar pelicula</button>
+                <div class="movie-container">
+                    <table class="movie-table" id="to-watch">
+
+                    </table>
+                </div>
+            </section>
+
+        </section>
+    </main>
+
+    <footer></footer>
+
+    <div class="add-movie-modal" id="add-movie-modal">
+        <div>
+            <h1>Agregar Pelicula</h1>
+            <input type="text" placeholder="Nombre de la Pelicula">
+            <ul>
+                <li><button>Agregar</button></li>
+                <li><button>Cancelar</button></li>
+            </ul>
+        </div>
+    </div>
+
+<script src="script.js"></script>
 </body>
 </html>
