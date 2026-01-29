@@ -1,6 +1,10 @@
 *{
     background-color: #ccc;
+
 }
+
+.view { display: none; }
+.view.active { display: block; }
 
 body {
     font-family: sans-serif;
