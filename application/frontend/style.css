@@ -1,0 +1,12 @@
+body {
+    font-family: sans-serif;
+}
+
+table {
+    width: 100%;
+}
+
+td {
+    border:solid red 1px;
+}
+
