@@ -9,31 +9,36 @@ body {
     font-family: system-ui, sans-serif;
     background-color: #ecebe6;
     color: #2e2e2e;
-    padding: 20px;
+    padding: 1em;
 }
 
 .navbar {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     background-color: #ffffff;
-    padding: 16px 24px;
-    border-radius: 16px;
+    padding: 1em 2em;
+    border-radius: 1em;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
-.navbar h1 {
-    font-size: 1.2rem;
+.navbar .title {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-size: 1em;
 }
 
 .navbar ul {
+    grid-column: 1/2;
+    justify-self: center;
     display: flex;
-    gap: 12px;
+    gap: 1em;
     list-style: none;
 }
 
 .nav-button {
-    padding: 6px 16px;
+    padding: 0.5em 0.6em;
     border-radius: 12px;
     border: 1px solid #d4d1c8;
     background-color: #f7f6f2;
@@ -46,14 +51,13 @@ body {
 }
 
 .profile {
-    margin-left: 12px;
-    width: 44px;
-    height: 44px;
+    width: 84px;
+    height: 84px;
     border-radius: 50%;
     border: none;
     background-color: #2f4858;
     color: #ffffff;
-    font-weight: 600;
+    font-weight: 800;
     cursor: pointer;
 }
 
@@ -74,19 +78,19 @@ body {
 
 .section {
     background-color: #ffffff;
-    padding: 22px;
+    padding: 2em;
     border-radius: 20px;
     box-shadow: 0 6px 16px rgba(0,0,0,0.08);
 }
 
-.section h1 {
+.section .title {
     font-size: 1.1rem;
-    margin-bottom: 10px;
+    margin-bottom: 1em;
 }
 
 .add-btn {
     margin-bottom: 16px;
-    padding: 8px 18px;
+    padding: 1em 1em;
     border-radius: 12px;
     border: 1px solid #d4d1c8;
     background-color: #f7f6f2;
@@ -99,7 +103,7 @@ body {
 
 .media-container {
     background-color: #f7f6f2;
-    padding: 14px;
+    padding: 1em;
     border-radius: 16px;
     margin-bottom: 14px;
     border-left: 6px solid #5b7c8d;
@@ -110,8 +114,12 @@ body {
     margin-bottom: 8px;
 }
 
-#seen-movies .media-container { border-left-color: #5b7c8d; }
-#watchlist-movies .media-container { border-left-color: #7a8f7a; }
+#seen-movies .media-container { 
+    border-left-color: #5b7c8d; 
+}
+#watchlist-movies .media-container {
+    border-left-color: #7a8f7a; 
+}
 
 #seen-series .media-container { border-left-color: #6b7280; }
 #watchlist-series .media-container { border-left-color: #8b9474; }
@@ -135,24 +143,23 @@ body {
 
 .add-movie-modal > div {
     background-color: #ffffff;
-    padding: 24px;
-    border-radius: 20px;
-    width: 320px;
+    padding: 1em;
+    border-radius: 1em;
+    width: 1em;
 }
 
 .add-movie-modal h1 {
-    margin-bottom: 12px;
+    margin-bottom: 1em;
 }
 
 .add-movie-modal input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 14px;
-    border-radius: 12px;
-    border: 1px solid #d4d1c8;
+    width: 1em;
+    padding: 1em;
+    margin-bottom: 1em;
+    border-radius: 1em;
+    border: 1em solid #d4d1c8;
 }
 
-/* BOTONES MODAL */
 .add-movie-modal ul {
     display: flex;
     justify-content: space-between;
@@ -163,14 +170,14 @@ body {
     background-color: #5b7c8d;
     color: #ffffff;
     border: none;
-    padding: 8px 18px;
-    border-radius: 12px;
+    padding: 1em ;
+    border-radius: 1em;
 }
 
 #cancel {
     background-color: #d4d1c8;
     color: #2e2e2e;
     border: none;
-    padding: 8px 18px;
-    border-radius: 12px;
+    padding: 1em;
+    border-radius: 1em;
 }

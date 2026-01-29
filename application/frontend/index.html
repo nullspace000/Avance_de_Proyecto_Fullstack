@@ -9,27 +9,25 @@
 <body>
     <header>
         <nav class="navbar">
-            <h1>Gestor de Medios</h1>
+            <h1 class="title">Gestor de Medios</h1>
             <div>
                 <ul>
                     <li><button class="nav-button" id="movies">Peliculas</button></li>
                     <li><button class="nav-button" id="series">Series</button></li>
                     <li><button class="nav-button" id="games">Juegos</button></li>
                 </ul>
-                <button class="profile" id="profile">Perfil</button>
             </div>
+            <button class="profile" id="profile">Perfil</button>
         </nav>
     </header>
 
     <main>
         <main>
-
-            <!-- 🎬 ================= PELÍCULAS ================= -->
             <div id="view-movies" class="view active">
                 <section class="container">
 
                     <section class="section" id="seen-movies">
-                        <h1>Películas Vistas</h1>
+                        <h2 class="title">Películas Vistas</h2>
                         <button class="add-btn">Agregar película</button>
 
                         <div class="media-container">
@@ -54,7 +52,7 @@
                     </section>
 
                     <section class="section" id="watchlist-movies">
-                        <h1>Películas por ver</h1>
+                        <h2 class="title">Películas por ver</h2>
                         <button class="add-btn">Agregar película</button>
                         <div class="media-container">
                             <table class="media-table" id="movies-watchlist"></table>
@@ -64,8 +62,6 @@
                 </section>
             </div>
 
-
-            <!-- 📺 ================= SERIES ================= -->
             <div id="view-series" class="view">
                 <section class="container">
 
@@ -88,10 +84,6 @@
                             <table class="media-table" id="series-disliked"></table>
                         </div>
 
-                        <div class="media-container">
-                            <h2>No la vería</h2>
-                            <table class="media-table" id="series-wont"></table>
-                        </div>
                     </section>
 
                     <section class="section" id="watchlist-series">
@@ -125,11 +117,6 @@
                         <div class="media-container">
                             <h2>No me gustó</h2>
                             <table class="media-table" id="games-disliked"></table>
-                        </div>
-
-                        <div class="media-container">
-                            <h2>No lo jugaría</h2>
-                            <table class="media-table" id="games-wont"></table>
                         </div>
                     </section>
 
