@@ -1,18 +1,29 @@
 {
-  "name": "backend",
+  "name": "media-tracker-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Backend API for Media Tracker application",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "jest --coverage",
+    "start": "node server.js",
+    "dev": "node server.js"
   },
-  "keywords": [],
+  "keywords": ["media", "tracker", "api", "express"],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "express": "^5.2.1",
-    "sqlite3": "^5.1.7"
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "sqlite3": "^5.1.7",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^6.3.3"
   }
 }
