@@ -1,0 +1,14 @@
+bolt,a
+dune,i read the book
+dune 2,when i read the book
+el rey león,es animada
+ghibli films,pop culture
+indiana johnese,la aventura
+lord of the rings,pop culture
+march comes in like a lion,recomendation
+the hobbit,pop culture
+the matrix,pop culture
+the perks of being a wall flower,recomendation
+weathering with you,amazing premise
+asdfasdf,asdf
+los increibles 2,recomendación
