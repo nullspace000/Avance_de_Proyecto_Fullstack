@@ -6,8 +6,7 @@ const dbPath = path.join(__dirname, 'media_tracker.db');
 const schema = `
 CREATE TABLE IF NOT EXISTS users (
     id TEXT PRIMARY KEY,
-    name TEXT NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    name TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS media_items (
@@ -15,17 +14,12 @@ CREATE TABLE IF NOT EXISTS media_items (
     user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     title TEXT NOT NULL,
     media_type TEXT CHECK(media_type IN ('movie', 'series', 'game')) NOT NULL,
-    status TEXT CHECK(status IN ('watchlist', 'watched')) NOT NULL DEFAULT 'watchlist',
     note TEXT,
     rating INTEGER CHECK(rating BETWEEN 0 AND 3),
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    watched_at DATETIME,
-    
-    CONSTRAINT rating_required_for_watched 
-        CHECK (status = 'watchlist' OR rating IS NOT NULL)
+    watched INTEGER DEFAULT 0 CHECK(watched IN (0, 1))
 );
 
-CREATE INDEX IF NOT EXISTS idx_media_user_type_status ON media_items(user_id, media_type, status);
+CREATE INDEX IF NOT EXISTS idx_media_user_type_watched ON media_items(user_id, media_type, watched);
 CREATE INDEX IF NOT EXISTS idx_media_user_rating ON media_items(user_id, media_type, rating);
 `;
 
@@ -69,46 +63,30 @@ app.get('/api/media', (req, res) => {
     });
 });
 
-//POST /api/media - Insert new media
+//POST /api/media - Insert new media (watchlist by default)
 app.post('/api/media', (req, res) => {
-    console.log('POST request received:', req.body);  // <-- Add this
-    
     const { title, media_type, note } = req.body;
     const id = require('crypto').randomUUID();
     
-    const sql = `INSERT INTO media_items (id, user_id, title, media_type, note, status) 
-                 VALUES (?, 'default-user', ?, ?, ?, 'watchlist')`;
+    const sql = `INSERT INTO media_items (id, user_id, title, media_type, note, watched) 
+                 VALUES (?, ?, ?, ?, ?, ?)`;
     
-    db.run(sql, [id, 'default-user', title, media_type, note], function(err) {
+    db.run(sql, [id, 'default-user', title, media_type, note, 0], function(err) {
         if (err) {
-            console.error('SQL Error:', err.message);  // <-- Add this
+            console.error('SQL Error:', err.message);
             return res.status(500).json({ error: err.message });
         }
-        console.log('Media added successfully:', id);  // <-- Add this
         res.json({ id, message: 'Media added' });
     });
 });
-//app.post('/api/media', (req, res) => {
-//    const { title, media_type, note } = req.body;
-//    const id = require('crypto').randomUUID(); // Generate UUID
-//    
-//    const sql = `INSERT INTO media_items (id, user_id, title, media_type, note, status) 
-//             VALUES (?, 'default-user', ?, ?, ?, 'watchlist')`;
-//    
-//    db.run(sql, [id, 'default-user', title, media_type, note], function(err) {
-//        if (err) return res.status(500).json({ error: err.message });
-//        res.json({ id, message: 'Media added' });
-//    });
-//});
 
-//PUT /api/media/:id - Update media (mark as watched, add rating)
+//PUT /api/media/:id - Mark as watched or update rating/note
 app.put('/api/media/:id', (req, res) => {
-    const { status, rating, note } = req.body;
+    const { rating, note } = req.body;
     const { id } = req.params;
     
-    // Build dynamic update query
-    let sql = 'UPDATE media_items SET status = ?';
-    const params = [status];
+    let sql = 'UPDATE media_items SET watched = 1';
+    const params = [];
     
     if (rating !== undefined) {
         sql += ', rating = ?';
@@ -117,9 +95,6 @@ app.put('/api/media/:id', (req, res) => {
     if (note !== undefined) {
         sql += ', note = ?';
         params.push(note);
-    }
-    if (status === 'watched') {
-        sql += ", watched_at = datetime('now')";
     }
     
     sql += ' WHERE id = ?';

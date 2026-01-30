@@ -25,10 +25,21 @@ gamesBtn.addEventListener('click', () => changeView(gamesBtn, viewGames));
 // ========= API FUNCTIONS ==========
 const API_URL = 'http://localhost:3000/api/media';
 
+// Rating display mapping
+const ratingLabels = {
+    0: '',
+    1: 'No me gustó',
+    2: 'Me gustó',
+    3: 'Me encantó'
+};
+
 async function loadMedia() {
     try {
+        console.log('Fetching media...');
         const response = await fetch(API_URL);
+        console.log('Response status:', response.status);
         const media = await response.json();
+        console.log('Media loaded:', media);
         renderMedia(media);
     } catch (err) {
         console.error('Error loading media:', err);
@@ -43,22 +54,41 @@ function renderMedia(media) {
         document.getElementById(`${type}-liked`).innerHTML = '';
         document.getElementById(`${type}-disliked`).innerHTML = '';
     });
-
-    // Note: Your HTML uses lowercase ids like 'movies-watchlist'
-    // but my code expects 'movies-watchlist' - need to check your HTML
     
     media.forEach(item => {
-        // Your render logic here...
+        const type = item.media_type;
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${item.title}</td>
+            <td>${item.note || ''}</td>
+            <td>${ratingLabels[item.rating] || ''}</td>
+            <td>
+                ${item.watched === 0 
+                    ? `<button onclick="markAsWatched('${item.id}')">Marcar visto</button>`
+                    : ''}
+                <button onclick="deleteMedia('${item.id}')">Eliminar</button>
+            </td>
+        `;
+        
+        if (item.watched === 0) {
+            document.getElementById(`${type}-watchlist`).appendChild(row);
+        } else {
+            const ratingTable = { 3: 'loved', 2: 'liked', 1: 'disliked' };
+            const tableId = ratingTable[item.rating] || 'disliked';
+            document.getElementById(`${type}-${tableId}`).appendChild(row);
+        }
     });
 }
 
 async function addMediaToAPI(title, type, note) {
     try {
-        await fetch(API_URL, {
+        console.log('Adding media:', { title, media_type: type, note });
+        const response = await fetch(API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ title, media_type: type, note })
         });
+        console.log('Add response status:', response.status);
         loadMedia();
     } catch (err) {
         console.error('Error:', err);
@@ -70,7 +100,7 @@ async function markAsWatched(id, rating = 3) {
         await fetch(`${API_URL}/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ status: 'watched', rating })
+            body: JSON.stringify({ rating })
         });
         loadMedia();
     } catch (err) {
