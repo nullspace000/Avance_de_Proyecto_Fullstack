@@ -71,17 +71,35 @@ app.get('/api/media', (req, res) => {
 
 //POST /api/media - Insert new media
 app.post('/api/media', (req, res) => {
+    console.log('POST request received:', req.body);  // <-- Add this
+    
     const { title, media_type, note } = req.body;
-    const id = require('crypto').randomUUID(); // Generate UUID
+    const id = require('crypto').randomUUID();
     
-    const sql = `INSERT INTO media_items (id, title, media_type, note, status) 
-                 VALUES (?, ?, ?, ?, 'watchlist')`;
+    const sql = `INSERT INTO media_items (id, user_id, title, media_type, note, status) 
+                 VALUES (?, 'default-user', ?, ?, ?, 'watchlist')`;
     
-    db.run(sql, [id, title, media_type, note], function(err) {
-        if (err) return res.status(500).json({ error: err.message });
+    db.run(sql, [id, 'default-user', title, media_type, note], function(err) {
+        if (err) {
+            console.error('SQL Error:', err.message);  // <-- Add this
+            return res.status(500).json({ error: err.message });
+        }
+        console.log('Media added successfully:', id);  // <-- Add this
         res.json({ id, message: 'Media added' });
     });
 });
+//app.post('/api/media', (req, res) => {
+//    const { title, media_type, note } = req.body;
+//    const id = require('crypto').randomUUID(); // Generate UUID
+//    
+//    const sql = `INSERT INTO media_items (id, user_id, title, media_type, note, status) 
+//             VALUES (?, 'default-user', ?, ?, ?, 'watchlist')`;
+//    
+//    db.run(sql, [id, 'default-user', title, media_type, note], function(err) {
+//        if (err) return res.status(500).json({ error: err.message });
+//        res.json({ id, message: 'Media added' });
+//    });
+//});
 
 //PUT /api/media/:id - Update media (mark as watched, add rating)
 app.put('/api/media/:id', (req, res) => {
