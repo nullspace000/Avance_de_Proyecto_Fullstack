@@ -1,5 +1,4 @@
 const sqlite3 = require('sqlite3').verbose();
-const { open } = require('sqlite');
 const path = require('path');
 
 const dbPath = path.join(__dirname, 'media_tracker.db');
@@ -37,7 +36,6 @@ const db = new sqlite3.Database(dbPath, (err) => {
     } else {
         console.log('Connected to SQLite database');
         
-        // Run schema
         db.exec(schema, (err) => {
             if (err) {
                 console.error('Error creating tables:', err.message);
@@ -49,3 +47,31 @@ const db = new sqlite3.Database(dbPath, (err) => {
 });
 
 module.exports = db;
+
+// Add Express server code below...
+// 1. Imports at top
+const sqlite3 = require('sqlite3').verbose();
+const express = require('express');
+const path = require('path');
+
+// 2. Database setup
+const dbPath = path.join(__dirname, 'media_tracker.db');
+const db = new sqlite3.Database(dbPath, (err) => { ... });
+
+const schema = `...`; // your CREATE TABLE statements
+db.exec(schema, ...);
+
+// 3. Express app setup
+const app = express();
+app.use(express.json());
+
+// 4. API endpoints (routes)
+app.get('/api/media', (req, res) => { ... });
+app.post('/api/media', (req, res) => { ... });
+app.put('/api/media/:id', (req, res) => { ... });
+app.delete('/api/media/:id', (req, res) => { ... });
+
+// 5. Start server
+app.listen(3000, () => {
+    console.log('Server running at http://localhost:3000');
+});
