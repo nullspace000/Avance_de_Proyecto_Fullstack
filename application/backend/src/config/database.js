@@ -41,11 +41,9 @@ CREATE TABLE IF NOT EXISTS media_items (
     title TEXT NOT NULL,
     original_title TEXT,
     description TEXT,
-    note TEXT,
+    status TEXT NOT NULL DEFAULT 'watchlist' CHECK(status IN ('watchlist', 'seen')),
+    rating TEXT CHECK(rating IN ('loved', 'liked', 'disliked')),
     reason TEXT,
-    rating INTEGER CHECK(rating BETWEEN 0 AND 5),
-    watched INTEGER DEFAULT 0 CHECK(watched IN (0, 1)),
-    watch_date DATE,
     poster_url TEXT,
     metadata JSON,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -85,7 +83,7 @@ CREATE TABLE IF NOT EXISTS custom_list_items (
 -- Indexes
 CREATE INDEX IF NOT EXISTS idx_media_user ON media_items(user_id);
 CREATE INDEX IF NOT EXISTS idx_media_type ON media_items(media_type_id);
-CREATE INDEX IF NOT EXISTS idx_media_watched ON media_items(user_id, watched);
+CREATE INDEX IF NOT EXISTS idx_media_status ON media_items(user_id, status);
 CREATE INDEX IF NOT EXISTS idx_media_rating ON media_items(user_id, rating);
 CREATE INDEX IF NOT EXISTS idx_watchlist_user ON watchlist(user_id);
 CREATE INDEX IF NOT EXISTS idx_custom_list_user ON custom_lists(user_id);
@@ -112,6 +110,13 @@ db.serialize(() => {
         (3, 'game', '🎮')
     `;
     db.run(insertMediaTypes);
+
+    // Insert default user if not exists
+    const insertDefaultUser = `
+        INSERT OR IGNORE INTO users (id, username, email, password_hash) VALUES
+        ('default-user', 'default', 'default@example.com', 'placeholder')
+    `;
+    db.run(insertDefaultUser);
 });
 
 module.exports = db;

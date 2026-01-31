@@ -3,17 +3,13 @@
     padding: 0;
     box-sizing: border-box;
     font-family: system-ui, sans-serif;
-
-    /*CONSTANTES*/
-
 }
-/* TODO LO DE LAS VENTANAS*/
+
+/* VISTAS */
 .view { display: none; }
 .view.active { display: block; }
 
-
-/* RESET */
-
+/* BODY */
 body {
     font-family: system-ui, sans-serif;
     background-color: #ecebe6;
@@ -21,6 +17,7 @@ body {
     padding: 2em 3em 2em 3em;
 }
 
+/* NAVBAR */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -52,14 +49,16 @@ body {
     padding: 0.3em 1em;
     border-radius: 12px;
     cursor: pointer;
+    background-color: transparent;
 }
 
-.profile {
-    color: black;
-    height: 5em;
-    width: 5em;
-    border-radius: 50%;
-    border: none;
+.nav-button:hover {
+    background-color: #f0f0f0;
+}
+
+.nav-button.active {
+    background-color: #5b7c8d;
+    color: white;
 }
 
 main {
@@ -85,7 +84,8 @@ main {
 .section {
     background-color: #ffffff;
     width: 70em;
-    height: 30em;
+    height: auto;
+    min-height: 30em;
     padding: 2em;
     border-radius: 30px;
     box-shadow: 0 0 16px rgba(0,0,0,0.08);
@@ -112,7 +112,7 @@ main {
 .media-container {
     background-color: #f7f6f2;
     padding: 2em;
-    border-radius:  5px 16px 16px 5px;
+    border-radius: 5px 16px 16px 5px;
     border-left: 8px solid;
     margin-bottom: 14px;
 }
@@ -131,13 +131,31 @@ main {
 #seen-games .media-container { border-left-color: #7c6f91; }
 #watchlist-games .media-container { border-left-color: #8a7f6d; }
 
+/* TABLAS */
 .media-table {
     width: 100%;
     border-collapse: collapse;
 }
 
+.media-table th,
+.media-table td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.media-table th {
+    background-color: #e8e8e8;
+    font-weight: 600;
+}
+
+.media-table tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* MODAL */
 .add-item-modal {
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     position: fixed;
@@ -146,7 +164,10 @@ main {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.2);
+}
 
+.add-item-modal.active {
+    display: flex;
 }
 
 .modal-content {
@@ -156,86 +177,82 @@ main {
     background-color: #ffffff;
     padding: 2em;
     border-radius: 30px;
+    min-width: 300px;
 }
- .modal-content input {
-     height: 2em;
-     padding: 1em;
-     border-radius: 6px;
-     border: 1px solid #d4d1c8;
-     margin-top: 1em;
- }
 
- .modal-btns {
-     display: flex;
-     justify-content: center;
-     gap: 1em;
- }
+.modal-content input {
+    height: 2em;
+    padding: 1em;
+    border-radius: 6px;
+    border: 1px solid #d4d1c8;
+    margin-top: 1em;
+}
 
- #add {
-     background-color: #5b7c8d;
-     color: #ffffff;
-     padding: 0.5em 1em;
-     border-radius: 12px;
-     border: none;
-     cursor: pointer;
-     width: 10em;
- }
- #add:hover {
-     background-color: #4b6676;
- }
+.dynamic-input {
+    width: 100%;
+    padding: 0.8em 1em;
+    border: 1px solid #d4d1c8;
+    border-radius: 6px;
+    margin-top: 0.5em;
+}
 
- #cancel {
-     background-color: #ffffff;
-     color: #5b7c8d;
-     padding: 0.5em 1em;
-     border-radius: 12px;
-     border: 1px solid #d4d1c8;
-     cursor: pointer;
-     width: 10em;
- }
-
- #cancel:hover {
-     background-color: #e3e1da;
-     border: 1px solid #d4d1c8;
- }
-
-
-.rating-options {
+.rating-wrapper {
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin-top: 10px;
 }
 
-.rating-item {
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    padding: 8px 12px;
-    cursor: pointer;
-    transition: 0.2s;
+.rating-wrapper label {
     display: flex;
     align-items: center;
     gap: 8px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: 0.2s;
 }
 
-.rating-item:hover {
-    border-color: #999;
+.rating-wrapper label:hover {
+    background-color: #f0f0f0;
 }
 
-.rating-item input {
-    display: none;
-}
-
-.rating-item input:checked + span {
-    font-weight: bold;
-    color: #1e88e5;
-}
-
-.rating-item input:checked {
+.rating-wrapper input[type="radio"] {
     accent-color: #1e88e5;
 }
 
-.rating-item:has(input:checked) {
-    border-color: #1e88e5;
-    background: #e3f2fd;
+.modal-btns {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    margin-top: 1em;
+}
+
+#add {
+    background-color: #5b7c8d;
+    color: #ffffff;
+    padding: 0.5em 1em;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    width: 10em;
+}
+
+#add:hover {
+    background-color: #4b6676;
+}
+
+#cancel {
+    background-color: #ffffff;
+    color: #5b7c8d;
+    padding: 0.5em 1em;
+    border-radius: 12px;
+    border: 1px solid #d4d1c8;
+    cursor: pointer;
+    width: 10em;
+}
+
+#cancel:hover {
+    background-color: #e3e1da;
+    border: 1px solid #d4d1c8;
 }

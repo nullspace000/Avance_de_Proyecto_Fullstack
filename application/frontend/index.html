@@ -12,144 +12,174 @@
             <h1>Gestor de Medios</h1>
             <div>
                 <ul>
-                    <li><button class="nav-button" id="movies">Películas</button></li>
+                    <li><button class="nav-button active" id="movies">Películas</button></li>
                     <li><button class="nav-button" id="series">Series</button></li>
                     <li><button class="nav-button" id="games">Juegos</button></li>
                 </ul>
             </div>
-            <button class="profile" id="profile">Perfil</button>
         </nav>
     </header>
 
     <main>
-        <main>
+        <div id="view-movies" class="view active">
+            <section class="container">
+                <!-- PELÍCULAS VISTAS -->
+                <section class="section" id="seen-movies">
+                    <div class="btn-section">
+                        <h1>Películas Vistas</h1>
+                        <button class="add-btn">Agregar película</button>
+                    </div>
+                    
+                    <div class="media-container">
+                        <h2>Me encantó</h2>
+                        <table class="media-table" id="movies-loved">
+                            <thead><tr><th>Título</th></tr></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
 
-            <div id="view-movies" class="view active">
-                <section class="container">
+                    <div class="media-container">
+                        <h2>Me gustó</h2>
+                        <table class="media-table" id="movies-liked">
+                            <thead><tr><th>Título</th></tr></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
 
-                    <section class="section" id="seen-movies">
-                        <div class="btn-section">
-                            <h1>Películas Vistas</h1>
-                            <button class="add-btn">Agregar película</button>
-                        </div>
-                        <div class="media-container">
-                            <h2>Me encantó</h2>
-                            <table class="media-table" id="movies-loved"></table>
-                        </div>
-
-                        <div class="media-container">
-                            <h2>Me gustó</h2>
-                            <table class="media-table" id="movies-liked"></table>
-                        </div>
-
-                        <div class="media-container">
-                            <h2>No me gustó</h2>
-                            <table class="media-table" id="movies-disliked"></table>
-                        </div>
-                    </section>
-
-                    <section class="section" id="watchlist-movies">
-                        <div class="btn-section">
-                            <h1>Películas por ver</h1>
-                            <button class="add-btn">Agregar película</button>
-                        </div>
-                        <div class="media-container">
-                            <table class="media-table" id="movies-watchlist"></table>
-                        </div>
-                    </section>
-
+                    <div class="media-container">
+                        <h2>No me gustó</h2>
+                        <table class="media-table" id="movies-disliked">
+                            <thead><tr><th>Título</th></tr></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
                 </section>
-            </div>
 
-            <div id="view-series" class="view">
-                <section class="container">
-                    <section class="section" id="seen-series">
-                        <div class="btn-section">
-                            <h1>Series Vistas</h1>
-                            <button class="add-btn">Agregar serie</button>
-                        </div>
-
-                        <div class="media-container">
-                            <h2>Me encantó</h2>
-                            <table class="media-table" id="series-loved"></table>
-                        </div>
-
-                        <div class="media-container">
-                            <h2>Me gustó</h2>
-                            <table class="media-table" id="series-liked"></table>
-                        </div>
-
-                        <div class="media-container">
-                            <h2>No me gustó</h2>
-                            <table class="media-table" id="series-disliked"></table>
-                        </div>
-                    </section>
-
-                    <section class="section" id="watchlist-series">
-                        <div class="btn-section">
-                            <h1>Series por ver</h1>
-                            <button class="add-btn">Agregar serie</button>
-                        </div>
-
-                        <div class="media-container">
-                            <table class="media-table" id="series-watchlist"></table>
-                        </div>
-                    </section>
-
-
+                <!-- PELÍCULAS POR VER -->
+                <section class="section" id="watchlist-movies">
+                    <div class="btn-section">
+                        <h1>Películas por ver</h1>
+                        <button class="add-btn">Agregar película</button>
+                    </div>
+                    <div class="media-container">
+                        <table class="media-table" id="movies-watchlist">
+                            <thead><tr><th>Título</th><th>Razón</th></tr></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
                 </section>
-            </div>
+            </section>
+        </div>
 
-            <div id="view-games" class="view">
-                <section class="container">
+        <div id="view-series" class="view">
+            <section class="container">
+                <!-- SERIES VISTAS -->
+                <section class="section" id="seen-series">
+                    <div class="btn-section">
+                        <h1>Series Vistas</h1>
+                        <button class="add-btn">Agregar serie</button>
+                    </div>
 
-                    <section class="section" id="seen-games">
-                        <div class="btn-section">
-                            <h1>Juegos Jugados</h1>
-                            <button class="add-btn">Agregar juego</button>
-                        </div>
+                    <div class="media-container">
+                        <h2>Me encantó</h2>
+                        <table class="media-table" id="series-loved">
+                            <thead><tr><th>Título</th></tr></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
 
-                        <div class="media-container">
-                            <h2>Me encantó</h2>
-                            <table class="media-table" id="games-loved"></table>
-                        </div>
+                    <div class="media-container">
+                        <h2>Me gustó</h2>
+                        <table class="media-table" id="series-liked">
+                            <thead><tr><th>Título</th></tr></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
 
-                        <div class="media-container">
-                            <h2>Me gustó</h2>
-                            <table class="media-table" id="games-liked"></table>
-                        </div>
-
-                        <div class="media-container">
-                            <h2>No me gustó</h2>
-                            <table class="media-table" id="games-disliked"></table>
-                        </div>
-                    </section>
-
-                    <section class="section" id="watchlist-games">
-                        <div class="btn-section">
-                            <h1>Juegos por jugar</h1>
-                            <button class="add-btn">Agregar juego</button>
-                        </div>
-
-                        <div class="media-container">
-                            <table class="media-table" id="games-watchlist"></table>
-                        </div>
-                    </section>
-
+                    <div class="media-container">
+                        <h2>No me gustó</h2>
+                        <table class="media-table" id="series-disliked">
+                            <thead><tr><th>Título</th></tr></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
                 </section>
-            </div>
 
-        </main>
+                <!-- SERIES POR VER -->
+                <section class="section" id="watchlist-series">
+                    <div class="btn-section">
+                        <h1>Series por ver</h1>
+                        <button class="add-btn">Agregar serie</button>
+                    </div>
+                    <div class="media-container">
+                        <table class="media-table" id="series-watchlist">
+                            <thead><tr><th>Título</th><th>Razón</th></tr></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </section>
+            </section>
+        </div>
 
+        <div id="view-games" class="view">
+            <section class="container">
+                <!-- JUEGOS JUGADOS -->
+                <section class="section" id="seen-games">
+                    <div class="btn-section">
+                        <h1>Juegos Jugados</h1>
+                        <button class="add-btn">Agregar juego</button>
+                    </div>
 
+                    <div class="media-container">
+                        <h2>Me encantó</h2>
+                        <table class="media-table" id="games-loved">
+                            <thead><tr><th>Título</th></tr></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                    <div class="media-container">
+                        <h2>Me gustó</h2>
+                        <table class="media-table" id="games-liked">
+                            <thead><tr><th>Título</th></tr></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                    <div class="media-container">
+                        <h2>No me gustó</h2>
+                        <table class="media-table" id="games-disliked">
+                            <thead><tr><th>Título</th></tr></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- JUEGOS POR JUGAR -->
+                <section class="section" id="watchlist-games">
+                    <div class="btn-section">
+                        <h1>Juegos por jugar</h1>
+                        <button class="add-btn">Agregar juego</button>
+                    </div>
+                    <div class="media-container">
+                        <table class="media-table" id="games-watchlist">
+                            <thead><tr><th>Título</th><th>Razón</th></tr></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </section>
+            </section>
+        </div>
     </main>
 
     <footer></footer>
 
+    <!-- MODAL -->
     <div class="add-item-modal" id="add-movie-modal">
         <div class="modal-content">
-            <h1>Agregar Pelicula</h1>
-            <input id="item-input" type="text" placeholder="Nombre de la Pelicula">
+            <h1 id="modal-title">Agregar</h1>
+            <input id="item-input" type="text" placeholder="Nombre">
+            <div id="dynamic-fields"></div>
             <div class="modal-btns">
                 <button id="add">Agregar</button>
                 <button id="cancel">Cancelar</button>
@@ -157,6 +187,6 @@
         </div>
     </div>
 
-<script src="app.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>

@@ -15,24 +15,30 @@ class MediaItem {
             const mediaType = mediaTypeMap[mediaTypeId] || 'movie';
             
             const sql = `
-                INSERT INTO media_items (id, user_id, media_type_id, title, note, reason, rating, watched, poster_url)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO media_items (id, user_id, media_type_id, title, status, rating, reason, poster_url)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             `;
             const params = [
                 id, 
-                data.user_id || 'default-user', 
+                data.user_id, 
                 mediaTypeId, 
                 data.title,
-                data.note || null, 
-                data.reason || null, 
-                data.rating || null, 
-                data.watched ? 1 : 0,
+                data.status || 'watchlist',
+                data.rating || null,
+                data.reason || null,
                 data.poster_url || null
             ];
             
             db.run(sql, params, function(err) {
                 if (err) reject(err);
-                else resolve({ id, title: data.title, media_type: mediaType });
+                else resolve({ 
+                    id, 
+                    title: data.title, 
+                    media_type: mediaType,
+                    status: data.status || 'watchlist',
+                    rating: data.rating || null,
+                    reason: data.reason || null
+                });
             });
         });
     }
@@ -47,9 +53,10 @@ class MediaItem {
             `;
             const params = [userId];
 
-            if (options.watched !== undefined) {
-                sql += ' AND m.watched = ?';
-                params.push(options.watched ? 1 : 0);
+            // Filter by status (watchlist or seen)
+            if (options.status) {
+                sql += ' AND m.status = ?';
+                params.push(options.status);
             }
 
             if (options.mediaTypeId) {
@@ -102,7 +109,7 @@ class MediaItem {
             const fields = [];
             const values = [];
 
-            const allowedFields = ['title', 'note', 'reason', 'rating', 'watched', 'watch_date', 'poster_url', 'media_type_id'];
+            const allowedFields = ['title', 'status', 'rating', 'reason', 'poster_url', 'media_type_id'];
             
             for (const field of allowedFields) {
                 if (data[field] !== undefined) {

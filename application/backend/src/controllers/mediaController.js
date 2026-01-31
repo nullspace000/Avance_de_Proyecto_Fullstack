@@ -1,6 +1,6 @@
 const MediaItem = require('../models/MediaItem');
 
-// Default user ID for single-user mode
+// Default user ID for single-user mode (without authentication)
 const DEFAULT_USER_ID = 'default-user';
 
 // Map frontend media types to database media_type_id
@@ -27,7 +27,7 @@ const mediaController = {
             const { 
                 title, 
                 media_type, 
-                note, 
+                status,
                 rating,
                 reason 
             } = req.body;
@@ -39,19 +39,16 @@ const mediaController = {
             // Normalize media_type to get media_type_id
             const normalizedMediaType = mediaTypeMap[media_type?.toLowerCase()] || 1;
             
-            // Convert status to watched (0 or 1)
-            // Frontend sends: 'watched' or 'to_watch' in status field
-            // Database uses: watched (0 or 1)
-            const watched = req.body.status === 'watched' ? 1 : 0;
+            // Status: 'watchlist' or 'seen'
+            const itemStatus = status || 'watchlist';
 
             const mediaItem = await MediaItem.create({
-                user_id: req.user.id,
+                user_id: DEFAULT_USER_ID,
                 title,
                 media_type_id: normalizedMediaType,
-                note: note || null,
-                reason: reason || null,
+                status: itemStatus,
                 rating: rating || null,
-                watched: watched,
+                reason: reason || null,
                 poster_url: req.body.poster_url || null
             });
 
@@ -67,12 +64,17 @@ const mediaController = {
 
     async getAll(req, res) {
         try {
-            const { media_type, search } = req.query;
+            const { media_type, status, search } = req.query;
 
             // Build filter options
             const options = {
                 search: search || null
             };
+
+            // Filter by status (watchlist or seen)
+            if (status) {
+                options.status = status;
+            }
 
             // Filter by media type if provided
             if (media_type) {
@@ -82,7 +84,7 @@ const mediaController = {
                 }
             }
 
-            const items = await MediaItem.findByUser(req.user.id, options);
+            const items = await MediaItem.findByUser(DEFAULT_USER_ID, options);
 
             // Map media_type_id back to string for frontend
             const mappedItems = items.map(item => ({
@@ -123,7 +125,7 @@ const mediaController = {
     async update(req, res) {
         try {
             const { id } = req.params;
-            const { rating, note, status } = req.body;
+            const { rating, status, reason } = req.body;
 
             // Build update data
             const updateData = {};
@@ -132,12 +134,12 @@ const mediaController = {
                 updateData.rating = rating;
             }
             
-            if (note !== undefined) {
-                updateData.note = note;
+            if (status !== undefined) {
+                updateData.status = status;
             }
             
-            if (status !== undefined) {
-                updateData.watched = status === 'watched' ? 1 : 0;
+            if (reason !== undefined) {
+                updateData.reason = reason;
             }
 
             const success = await MediaItem.update(id, updateData);
@@ -161,7 +163,7 @@ const mediaController = {
         try {
             const { id } = req.params;
 
-            const success = await MediaItem.delete(id, req.user.id);
+            const success = await MediaItem.delete(id, DEFAULT_USER_ID);
             
             if (!success) {
                 return res.status(404).json({ error: 'Media item not found' });
