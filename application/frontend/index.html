@@ -174,7 +174,7 @@
 
     <footer></footer>
 
-    <!-- MODAL -->
+    <!-- MODAL AÑADIR -->
     <div class="add-item-modal" id="add-movie-modal">
         <div class="modal-content">
             <h1 id="modal-title">Agregar</h1>
@@ -183,6 +183,24 @@
             <div class="modal-btns">
                 <button id="add">Agregar</button>
                 <button id="cancel">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL MARCAR COMO VISTO -->
+    <div class="add-item-modal" id="mark-seen-modal">
+        <div class="modal-content">
+            <h1>Marcar como visto</h1>
+            <p id="mark-seen-title" style="font-weight: bold; margin: 1em 0;"></p>
+            <p>Calificación:</p>
+            <div class="rating-wrapper" id="mark-rating-fields">
+                <label><input type="radio" name="mark-rating" value="loved"> Me encantó</label>
+                <label><input type="radio" name="mark-rating" value="liked"> Me gustó</label>
+                <label><input type="radio" name="mark-rating" value="disliked"> No me gustó</label>
+            </div>
+            <div class="modal-btns">
+                <button id="mark-seen-add">Marcar</button>
+                <button id="mark-seen-cancel">Cancelar</button>
             </div>
         </div>
     </div>

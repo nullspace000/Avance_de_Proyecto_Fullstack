@@ -126,7 +126,8 @@ main { padding: 0.6em 0; }
 .media-table th { background-color: #e8e8e8; font-weight: 600; }
 .media-table tbody tr:hover { background-color: #f5f5f5; }
 
-/* BOTÓN ELIMINAR */
+/* BOTONES DE ACCIÓN */
+.watch-btn,
 .delete-btn {
     background: none;
     border: none;
@@ -134,14 +135,14 @@ main { padding: 0.6em 0; }
     font-size: 1.2em;
     padding: 4px 8px;
     border-radius: 4px;
+    margin-right: 4px;
     transition: background-color 0.2s;
 }
 
-.delete-btn:hover {
-    background-color: #ffcccc;
-}
+.watch-btn:hover { background-color: #ccffcc; }
+.delete-btn:hover { background-color: #ffcccc; }
 
-/* MODAL */
+/* MODALES */
 .add-item-modal {
     display: none;
     justify-content: center;
@@ -209,7 +210,7 @@ main { padding: 0.6em 0; }
     margin-top: 1em;
 }
 
-#add {
+#add, #mark-seen-add {
     background-color: #5b7c8d;
     color: #ffffff;
     padding: 0.5em 1em;
@@ -219,9 +220,9 @@ main { padding: 0.6em 0; }
     width: 10em;
 }
 
-#add:hover { background-color: #4b6676; }
+#add:hover, #mark-seen-add:hover { background-color: #4b6676; }
 
-#cancel {
+#cancel, #mark-seen-cancel {
     background-color: #ffffff;
     color: #5b7c8d;
     padding: 0.5em 1em;
@@ -231,4 +232,4 @@ main { padding: 0.6em 0; }
     width: 10em;
 }
 
-#cancel:hover { background-color: #e3e1da; }
+#cancel:hover, #mark-seen-cancel:hover { background-color: #e3e1da; }

@@ -29,7 +29,7 @@ seriesBtn.addEventListener('click', () => changeView(seriesBtn, viewSeries));
 gamesBtn.addEventListener('click', () => changeView(gamesBtn, viewGames));
 
 
-// ========= MODAL =========
+// ========= MODAL AÑADIR =========
 const modal = document.getElementById('add-movie-modal');
 const addButtons = document.querySelectorAll('.add-btn');
 const cancelBtn = document.getElementById('cancel');
@@ -92,7 +92,65 @@ function renderModalContent() {
 }
 
 
-// ========= GUARDAR =========
+// ========= MODAL MARCAR COMO VISTO =========
+const markSeenModal = document.getElementById('mark-seen-modal');
+const markSeenTitle = document.getElementById('mark-seen-title');
+const markSeenAddBtn = document.getElementById('mark-seen-add');
+const markSeenCancelBtn = document.getElementById('mark-seen-cancel');
+
+let markSeenContext = { id: null, title: '', media_type: '' };
+
+// Abrir modal marcar como visto
+function openMarkSeenModal(item) {
+    markSeenContext = { id: item.id, title: item.title, media_type: item.media_type };
+    markSeenTitle.textContent = item.title;
+    // Limpiar selección anterior
+    document.querySelectorAll('input[name="mark-rating"]').forEach(r => r.checked = false);
+    markSeenModal.style.display = 'flex';
+}
+
+markSeenCancelBtn.addEventListener('click', () => {
+    markSeenModal.style.display = 'none';
+});
+
+window.addEventListener('click', (e) => {
+    if (e.target === markSeenModal) markSeenModal.style.display = 'none';
+});
+
+// Marcar como visto
+markSeenAddBtn.addEventListener('click', async () => {
+    const ratingInput = document.querySelector('input[name="mark-rating"]:checked');
+    if (!ratingInput) {
+        alert('Por favor selecciona una calificación');
+        return;
+    }
+
+    const rating = ratingInput.value;
+
+    try {
+        const res = await fetch(API_BASE + '/media/' + markSeenContext.id, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                status: 'seen',
+                rating: rating
+            })
+        });
+
+        if (res.ok) {
+            markSeenModal.style.display = 'none';
+            loadMediaItems();
+        } else {
+            alert('Error al actualizar');
+        }
+    } catch (err) {
+        console.error('Error actualizando:', err);
+        alert('Error conectando con el servidor');
+    }
+});
+
+
+// ========= GUARDAR NUEVO =========
 addBtn.addEventListener('click', async () => {
     const title = input.value.trim();
     if (!title) return;
@@ -133,16 +191,9 @@ async function deleteItem(id, title) {
     if (!confirm(`¿Eliminar "${title}"?`)) return;
     
     try {
-        const res = await fetch(API_BASE + '/media/' + id, {
-            method: 'DELETE'
-        });
-
-        if (res.ok) {
-            console.log('✅ Eliminado:', title);
-            loadMediaItems();
-        } else {
-            alert('Error al eliminar');
-        }
+        const res = await fetch(API_BASE + '/media/' + id, { method: 'DELETE' });
+        if (res.ok) { loadMediaItems(); }
+        else { alert('Error al eliminar'); }
     } catch (err) {
         console.error('Error eliminando:', err);
         alert('Error conectando con el servidor');
@@ -161,12 +212,10 @@ async function loadMediaItems() {
         const items = await response.json();
         console.log('📦 Items recibidos:', items.length);
         
-        // Limpiar tbody
         document.querySelectorAll('.media-table tbody').forEach(tbody => {
             while (tbody.firstChild) tbody.removeChild(tbody.firstChild);
         });
         
-        // Renderizar
         items.forEach((item, index) => {
             const success = renderItem(item, index);
             console.log(`  [${index + 1}] "${item.title}" -> ${success ? 'OK' : 'FALLO'}`);
@@ -181,7 +230,6 @@ async function loadMediaItems() {
 }
 
 function renderItem(item, index) {
-    // Convertir singular a plural para IDs de tablas
     const typeMap = { 'movie': 'movies', 'game': 'games', 'series': 'series' };
     const type = typeMap[item.media_type] || item.media_type;
     let tableId;
@@ -204,21 +252,34 @@ function renderItem(item, index) {
         const td1 = document.createElement('td'); td1.textContent = item.title;
         const td2 = document.createElement('td'); td2.textContent = item.reason || '-';
         const td3 = document.createElement('td');
+        
+        // Botón marcar como visto
+        const seenBtn = document.createElement('button');
+        seenBtn.textContent = '✅';
+        seenBtn.className = 'watch-btn';
+        seenBtn.title = 'Marcar como visto';
+        seenBtn.onclick = () => openMarkSeenModal(item);
+        
+        // Botón eliminar
         const deleteBtn = document.createElement('button');
         deleteBtn.textContent = '🗑️';
         deleteBtn.className = 'delete-btn';
         deleteBtn.title = 'Eliminar';
         deleteBtn.onclick = () => deleteItem(item.id, item.title);
+        
+        td3.appendChild(seenBtn);
         td3.appendChild(deleteBtn);
         tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3);
     } else {
         const td1 = document.createElement('td'); td1.textContent = item.title;
         const td2 = document.createElement('td');
+        
         const deleteBtn = document.createElement('button');
         deleteBtn.textContent = '🗑️';
         deleteBtn.className = 'delete-btn';
         deleteBtn.title = 'Eliminar';
         deleteBtn.onclick = () => deleteItem(item.id, item.title);
+        
         td2.appendChild(deleteBtn);
         tr.appendChild(td1); tr.appendChild(td2);
     }
