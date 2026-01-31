@@ -5,11 +5,9 @@
     font-family: system-ui, sans-serif;
 }
 
-/* VISTAS */
 .view { display: none; }
 .view.active { display: block; }
 
-/* BODY */
 body {
     font-family: system-ui, sans-serif;
     background-color: #ecebe6;
@@ -17,7 +15,6 @@ body {
     padding: 2em 3em 2em 3em;
 }
 
-/* NAVBAR */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -29,9 +26,7 @@ body {
     padding: 1em 4em 1em 4em;
 }
 
-.navbar h1 {
-    font-size: 1.3rem;
-}
+.navbar h1 { font-size: 1.3rem; }
 
 .navbar ul {
     display: flex;
@@ -52,18 +47,10 @@ body {
     background-color: transparent;
 }
 
-.nav-button:hover {
-    background-color: #f0f0f0;
-}
+.nav-button:hover { background-color: #f0f0f0; }
+.nav-button.active { background-color: #5b7c8d; color: white; }
 
-.nav-button.active {
-    background-color: #5b7c8d;
-    color: white;
-}
-
-main {
-    padding: 0.6em 0;
-}
+main { padding: 0.6em 0; }
 
 .btn-section {
     display: flex;
@@ -91,10 +78,7 @@ main {
     box-shadow: 0 0 16px rgba(0,0,0,0.08);
 }
 
-.section h1 {
-    font-size: 1.1rem;
-    margin-bottom: 1em;
-}
+.section h1 { font-size: 1.1rem; margin-bottom: 1em; }
 
 .add-btn {
     margin-bottom: 16px;
@@ -105,9 +89,7 @@ main {
     cursor: pointer;
 }
 
-.add-btn:hover {
-    background-color: #e3e1da;
-}
+.add-btn:hover { background-color: #e3e1da; }
 
 .media-container {
     background-color: #f7f6f2;
@@ -117,10 +99,7 @@ main {
     margin-bottom: 14px;
 }
 
-.media-container h2 {
-    font-size: 0.95rem;
-    margin-bottom: 8px;
-}
+.media-container h2 { font-size: 0.95rem; margin-bottom: 8px; }
 
 #seen-movies .media-container { border-left-color: #5b7c8d; }
 #watchlist-movies .media-container { border-left-color: #7a8f7a; }
@@ -144,13 +123,22 @@ main {
     border-bottom: 1px solid #e0e0e0;
 }
 
-.media-table th {
-    background-color: #e8e8e8;
-    font-weight: 600;
+.media-table th { background-color: #e8e8e8; font-weight: 600; }
+.media-table tbody tr:hover { background-color: #f5f5f5; }
+
+/* BOTÓN ELIMINAR */
+.delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
 }
 
-.media-table tbody tr:hover {
-    background-color: #f5f5f5;
+.delete-btn:hover {
+    background-color: #ffcccc;
 }
 
 /* MODAL */
@@ -166,9 +154,7 @@ main {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
-.add-item-modal.active {
-    display: flex;
-}
+.add-item-modal.active { display: flex; }
 
 .modal-content {
     display: flex;
@@ -213,13 +199,8 @@ main {
     transition: 0.2s;
 }
 
-.rating-wrapper label:hover {
-    background-color: #f0f0f0;
-}
-
-.rating-wrapper input[type="radio"] {
-    accent-color: #1e88e5;
-}
+.rating-wrapper label:hover { background-color: #f0f0f0; }
+.rating-wrapper input[type="radio"] { accent-color: #1e88e5; }
 
 .modal-btns {
     display: flex;
@@ -238,9 +219,7 @@ main {
     width: 10em;
 }
 
-#add:hover {
-    background-color: #4b6676;
-}
+#add:hover { background-color: #4b6676; }
 
 #cancel {
     background-color: #ffffff;
@@ -252,7 +231,4 @@ main {
     width: 10em;
 }
 
-#cancel:hover {
-    background-color: #e3e1da;
-    border: 1px solid #d4d1c8;
-}
+#cancel:hover { background-color: #e3e1da; }

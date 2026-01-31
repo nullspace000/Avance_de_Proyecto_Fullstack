@@ -1,8 +1,8 @@
 // ========= CONFIGURACIÓN =========
-const API_URL = window.location.origin + '/api';
+const API_BASE = 'http://localhost:3000/api';
 
 console.log('🎬 Iniciando Media Tracker...');
-console.log('API URL:', API_URL);
+console.log('API BASE:', API_BASE);
 
 
 // ========= NAVEGACIÓN =========
@@ -113,7 +113,7 @@ addBtn.addEventListener('click', async () => {
     }
 
     try {
-        const res = await fetch(API_URL + '/media', {
+        const res = await fetch(API_BASE + '/media', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ title, media_type: context.type, status, rating, reason })
@@ -128,17 +128,38 @@ addBtn.addEventListener('click', async () => {
 });
 
 
+// ========= ELIMINAR =========
+async function deleteItem(id, title) {
+    if (!confirm(`¿Eliminar "${title}"?`)) return;
+    
+    try {
+        const res = await fetch(API_BASE + '/media/' + id, {
+            method: 'DELETE'
+        });
+
+        if (res.ok) {
+            console.log('✅ Eliminado:', title);
+            loadMediaItems();
+        } else {
+            alert('Error al eliminar');
+        }
+    } catch (err) {
+        console.error('Error eliminando:', err);
+        alert('Error conectando con el servidor');
+    }
+}
+
+
 // ========= CARGAR Y RENDERIZAR =========
 async function loadMediaItems() {
     console.log('📥 Cargando items...');
     
     try {
-        const response = await fetch(API_URL + '/media');
+        const response = await fetch(API_BASE + '/media');
         if (!response.ok) throw new Error('HTTP ' + response.status);
         
         const items = await response.json();
         console.log('📦 Items recibidos:', items.length);
-        console.log('📋 Tipo de media_type:', items[0]?.media_type);
         
         // Limpiar tbody
         document.querySelectorAll('.media-table tbody').forEach(tbody => {
@@ -148,7 +169,7 @@ async function loadMediaItems() {
         // Renderizar
         items.forEach((item, index) => {
             const success = renderItem(item, index);
-            console.log(`  [${index + 1}] "${item.title}" (${item.media_type}) -> ${success ? 'OK' : 'FALLO'}`);
+            console.log(`  [${index + 1}] "${item.title}" -> ${success ? 'OK' : 'FALLO'}`);
         });
         
         const totalRows = document.querySelectorAll('.media-table tbody tr').length;
@@ -161,12 +182,7 @@ async function loadMediaItems() {
 
 function renderItem(item, index) {
     // Convertir singular a plural para IDs de tablas
-    const typeMap = {
-        'movie': 'movies',
-        'series': 'series', 
-        'game': 'games'
-    };
-    
+    const typeMap = { 'movie': 'movies', 'game': 'games', 'series': 'series' };
     const type = typeMap[item.media_type] || item.media_type;
     let tableId;
 
@@ -174,30 +190,37 @@ function renderItem(item, index) {
     else if (item.rating === 'loved') tableId = type + '-loved';
     else if (item.rating === 'liked') tableId = type + '-liked';
     else if (item.rating === 'disliked') tableId = type + '-disliked';
-    else { console.warn(`[${index}] Sin clasificación: ${item.status} ${item.rating}`); return false; }
+    else { return false; }
 
     const table = document.getElementById(tableId);
     if (!table) { console.warn(`[${index}] Tabla no encontrada: ${tableId}`); return false; }
 
     let tbody = table.querySelector('tbody');
-    if (!tbody) {
-        tbody = document.createElement('tbody');
-        table.appendChild(tbody);
-    }
+    if (!tbody) { tbody = document.createElement('tbody'); table.appendChild(tbody); }
 
     const tr = document.createElement('tr');
     
     if (item.status === 'watchlist') {
-        const td1 = document.createElement('td');
-        td1.textContent = item.title;
-        const td2 = document.createElement('td');
-        td2.textContent = item.reason || '-';
-        tr.appendChild(td1);
-        tr.appendChild(td2);
+        const td1 = document.createElement('td'); td1.textContent = item.title;
+        const td2 = document.createElement('td'); td2.textContent = item.reason || '-';
+        const td3 = document.createElement('td');
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = '🗑️';
+        deleteBtn.className = 'delete-btn';
+        deleteBtn.title = 'Eliminar';
+        deleteBtn.onclick = () => deleteItem(item.id, item.title);
+        td3.appendChild(deleteBtn);
+        tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3);
     } else {
-        const td = document.createElement('td');
-        td.textContent = item.title;
-        tr.appendChild(td);
+        const td1 = document.createElement('td'); td1.textContent = item.title;
+        const td2 = document.createElement('td');
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = '🗑️';
+        deleteBtn.className = 'delete-btn';
+        deleteBtn.title = 'Eliminar';
+        deleteBtn.onclick = () => deleteItem(item.id, item.title);
+        td2.appendChild(deleteBtn);
+        tr.appendChild(td1); tr.appendChild(td2);
     }
 
     tbody.appendChild(tr);
