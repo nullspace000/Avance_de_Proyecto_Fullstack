@@ -255,14 +255,14 @@ function renderItem(item, index) {
         
         // Botón marcar como visto
         const seenBtn = document.createElement('button');
-        seenBtn.textContent = '✅';
+        seenBtn.textContent = 'Visto';
         seenBtn.className = 'watch-btn';
         seenBtn.title = 'Marcar como visto';
         seenBtn.onclick = () => openMarkSeenModal(item);
         
         // Botón eliminar
         const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = '🗑️';
+        deleteBtn.textContent = 'Eliminar️';
         deleteBtn.className = 'delete-btn';
         deleteBtn.title = 'Eliminar';
         deleteBtn.onclick = () => deleteItem(item.id, item.title);
@@ -275,7 +275,7 @@ function renderItem(item, index) {
         const td2 = document.createElement('td');
         
         const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = '🗑️';
+        deleteBtn.textContent = 'Eliminar️️';
         deleteBtn.className = 'delete-btn';
         deleteBtn.title = 'Eliminar';
         deleteBtn.onclick = () => deleteItem(item.id, item.title);

@@ -233,3 +233,19 @@ main { padding: 0.6em 0; }
 }
 
 #cancel:hover, #mark-seen-cancel:hover { background-color: #e3e1da; }
+
+.watch-btn {
+    background-color: #5b7c8d; color: #ffffff;
+    border: none;
+    font-size: 1em;
+    border-radius: 10px;
+}
+
+.watch-btn:hover { background-color: #4b6676; }
+
+.delete-btn {
+    background-color: #e53935; color: #ffffff;
+    border: none;
+    font-size: 1em;
+    border-radius: 10px;
+}
