@@ -71,8 +71,7 @@ main { padding: 0.6em 0; }
 .section {
     background-color: #ffffff;
     width: 70em;
-    height: auto;
-    min-height: 30em;
+    min-height: 600px;
     padding: 2em;
     border-radius: 30px;
     box-shadow: 0 0 16px rgba(0,0,0,0.08);
@@ -97,6 +96,7 @@ main { padding: 0.6em 0; }
     border-radius: 5px 16px 16px 5px;
     border-left: 8px solid;
     margin-bottom: 14px;
+    min-height: 120px;
 }
 
 .media-container h2 { font-size: 0.95rem; margin-bottom: 8px; }
@@ -124,23 +124,61 @@ main { padding: 0.6em 0; }
 }
 
 .media-table th { background-color: #e8e8e8; font-weight: 600; }
-.media-table tbody tr:hover { background-color: #f5f5f5; }
+.media-table tbody tr:hover { background-color: #f5f5f0; }
 
-/* BOTONES DE ACCIÓN */
-.watch-btn,
-.delete-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.2em;
-    padding: 4px 8px;
-    border-radius: 4px;
-    margin-right: 4px;
-    transition: background-color 0.2s;
+/* COLUMNA DE ACCIONES - ANCHO FIJO PARA ALINEAR */
+.media-table th:last-child,
+.media-table td:last-child {
+    width: 100px;
+    text-align: center;
 }
 
-.watch-btn:hover { background-color: #ccffcc; }
-.delete-btn:hover { background-color: #ffcccc; }
+/* MENSAJE DE TABLA VACÍA */
+.media-table tbody tr.empty-message td {
+    color: #999;
+    font-style: italic;
+    text-align: center;
+    padding: 1em;
+}
+
+/* BOTONES DE ACCIÓN - ESTILOS APLICADOS */
+.watch-btn {
+    background-color: #5b7c8d;
+    color: #ffffff;
+    border: none;
+    font-size: 1em;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 5px 10px;
+    margin-right: 4px;
+    transition: background-color 0.2s;
+    display: inline-block;
+}
+
+.watch-btn:hover {
+    background-color: #4a6a7a;
+}
+
+.delete-btn {
+    background-color: #e53935;
+    color: #ffffff;
+    border: none;
+    font-size: 1em;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: background-color 0.2s;
+    display: inline-block;
+}
+
+.delete-btn:hover {
+    background-color: #c62828;
+}
+
+/* Asegurar que los botones estén en row */
+.media-table td:last-child {
+    white-space: nowrap;
+}
 
 /* MODALES */
 .add-item-modal {
@@ -233,19 +271,3 @@ main { padding: 0.6em 0; }
 }
 
 #cancel:hover, #mark-seen-cancel:hover { background-color: #e3e1da; }
-
-.watch-btn {
-    background-color: #5b7c8d; color: #ffffff;
-    border: none;
-    font-size: 1em;
-    border-radius: 10px;
-}
-
-.watch-btn:hover { background-color: #4b6676; }
-
-.delete-btn {
-    background-color: #e53935; color: #ffffff;
-    border: none;
-    font-size: 1em;
-    border-radius: 10px;
-}
