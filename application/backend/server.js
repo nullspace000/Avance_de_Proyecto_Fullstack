@@ -10,7 +10,6 @@ const cors = require('cors');
 const path = require('path');
 
 // Import routes
-const userRoutes = require('./src/routes/userRoutes');
 const mediaRoutes = require('./src/routes/mediaRoutes');
 
 // Initialize Express app
@@ -26,7 +25,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../frontend')));
 
 // API Routes
-app.use('/api/users', userRoutes);
 app.use('/api/media', mediaRoutes);
 
 // Health check endpoint
@@ -44,21 +42,12 @@ app.get('/api', (req, res) => {
         name: 'Media Tracker API',
         version: '1.0.0',
         endpoints: {
-            users: {
-                'POST /api/users/register': 'Register a new user',
-                'POST /api/users/login': 'Login and get JWT token',
-                'GET /api/users/profile': 'Get user profile (protected)',
-                'PUT /api/users/profile': 'Update user profile (protected)',
-                'DELETE /api/users/account': 'Delete account (protected)',
-                'POST /api/users/logout': 'Logout (protected)',
-                'GET /api/users/me': 'Get current user (protected)'
-            },
             media: {
-                'GET /api/media': 'Get all media items (protected)',
-                'GET /api/media/:id': 'Get media item by ID (protected)',
-                'POST /api/media': 'Create new media item (protected)',
-                'PUT /api/media/:id': 'Update media item (protected)',
-                'DELETE /api/media/:id': 'Delete media item (protected)'
+                'GET /api/media': 'Get all media items',
+                'GET /api/media/:id': 'Get media item by ID',
+                'POST /api/media': 'Create new media item',
+                'PUT /api/media/:id': 'Update media item',
+                'DELETE /api/media/:id': 'Delete media item'
             }
         }
     });
@@ -94,7 +83,6 @@ app.listen(PORT, () => {
 ║   API docs at:      http://localhost:${PORT}/api             ║
 ║                                                            ║
 ║   Endpoints:                                                  ║
-║   • Users:     POST /api/users/register, /login             ║
 ║   • Media:     GET/POST/PUT/DELETE /api/media               ║
 ║                                                            ║
 ╚════════════════════════════════════════════════════════════╝
